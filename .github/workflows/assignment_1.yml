@@ -10,25 +10,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
       - name: Set up QEMU for ARM
         uses: docker/setup-qemu-action@v2
 
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up C++ Environment
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y g++ g++-arm-linux-gnueabihf
+        run: sudo apt-get install g++
 
-      - name: Compile C++ code for x86
-        run: g++ HelloWorld.cpp -o HelloWorld.exe 
+      - name: Install cross-compiler
+        run: sudo apt-get update && sudo apt-get install -y g++-arm-linux-gnueabihf
 
-      - name: Compile C++ code for ARM
+      - name: Compile C++ code
         run: arm-linux-gnueabihf-g++ HelloWorld.cpp -o HelloWorld-arm
 
+      - name: Compile C++ code For Testing
+        run: g++ HelloWorld.cpp -o HelloWorld.exe 
+      
       - name: Run Executable
         run: ./HelloWorld.exe
 
-      - name: Run ARM Executable in Docker Container
-        run: docker run -v $(pwd):/mnt --rm multiarch/qemu-user-static --reset -p yes --credential yes /usr/bin/qemu-arm-static -L /usr/arm-linux-gnueabihf /mnt/HelloWorld-arm
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: compiled-code
+          path: HelloWorld.exe
+
+            
