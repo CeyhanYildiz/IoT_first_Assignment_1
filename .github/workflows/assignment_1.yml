@@ -27,6 +27,9 @@ jobs:
       - name: Compile C++ code
         run: arm-linux-gnueabihf-g++ HelloWorld.cpp -o HelloWorld-arm
 
+      - name: Compile C++ code For Testing
+        run: g++ HelloWorld.cpp -o HelloWorld.exe 
+
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
