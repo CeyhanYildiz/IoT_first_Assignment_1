@@ -33,11 +33,11 @@ jobs:
       - name: Compile C++ code For Testing
         run: g++ HelloWorld.cpp -o HelloWorld.exe 
       
-      - name: Run exe Executable
-        run: ./HelloWorld.exe
+      - name: Makes it work 
+        run: chmod +x HelloWorld.arm
 
-      - name: Run arm Executable
-        run: ./HelloWorld-arm
+      - name: Run exe Executable
+        run: ./HelloWorld
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3

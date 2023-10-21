@@ -1,5 +1,5 @@
 @echo off
 git add *
-git commit -m "Assignment 1 v4.2.1"
+git commit -m "Assignment 1 v4.1.2"
 git push
 cls
