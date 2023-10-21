@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - name: Compile HelloWorld.c
+      uses: gcc HelloWorld.c -o HelloWorld.exe
 
-    - name: Set up C/C++ environment
-      uses: actions/setup-cpp@v1
+    - name: Run HelloWorld
+      uses: ./HelloWorld.exe
 
     - name: Build
       run: |
