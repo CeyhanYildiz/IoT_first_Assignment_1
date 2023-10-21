@@ -20,7 +20,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y g++-arm-linux-gnueabihf
 
       - name: Compile C++ code
-        run: arm-linux-gnueabihf-g++ main.cpp -o main-arm
+        run: arm-linux-gnueabihf-g++ HelloWorld.cpp -o HelloWorld-arm
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
