@@ -14,12 +14,12 @@ jobs:
         uses: docker/setup-qemu-action@v2
 
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up C++ Environment
         run: |
           sudo apt-get update
-          sudo apt-get install -y g++ g++-arm-linux-gnueabihf
+          sudo apt-get install -y g++ g++-arm-linux-gnueabihf qemu-user-static
 
       - name: Compile C++ code for x86
         run: g++ HelloWorld.cpp -o HelloWorld.exe 
@@ -31,7 +31,7 @@ jobs:
         run: ./HelloWorld.exe
 
       - name: Run ARM Executable
-        run: ./HelloWorld-arm
+        run: qemu-arm -L /usr/arm-linux-gnueabihf ./HelloWorld-arm
 
       - name: Upload x86 Artifact
         uses: actions/upload-artifact@v2
