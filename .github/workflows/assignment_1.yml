@@ -1,0 +1,37 @@
+name: Build C Program
+
+on:
+  push:
+    branches:
+      - main  # Change this to your repository's default branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check Out Code
+      uses: actions/checkout@v2
+
+    - name: Set up GCC
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Build Program
+      run: |
+        if [[ -f HelloWorld.c ]]; then
+          gcc HelloWorld.c -o HelloWorld
+        else
+          echo "No C source file found."
+          exit 1
+        fi
+
+    - name: Run Program
+      run: |
+        if [[ -f HelloWorld ]]; then
+          ./HelloWorld
+        else
+          echo "Executable not found. Build step may have failed."
+          exit 1
+        fi
