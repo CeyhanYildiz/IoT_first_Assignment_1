@@ -1,34 +1,24 @@
-name: Build C/C++ Program for TUL Pynq Z2
+name: Build C/C++ Program
 
-on: [push]
+on:
+  push:
+    branches:
+      - main # Change this to your default branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
+    - name: Checkout code
       uses: actions/checkout@v2
 
     - name: Set up C/C++ environment
-      uses: actions/setup-cpp@v2
+      uses: actions/setup-cpp@v1
 
-    - name: Install Cross-Compiler
+    - name: Build
       run: |
-        # Replace 'cross-compiler-command' with the appropriate installation command
-        sudo apt-get install -y cross-compiler-command
-      shell: bash
-
-    - name: Cross-Compile for TUL Pynq Z2
-      run: |
-        # Replace 'program_name' with your program's filename
-        # Replace 'cross-compile-command' with the cross-compiler command
-        cross-compile-command program_name.cpp -o program_name
-      shell: bash
-      working-directory: "C:\Users\ceyha\OneDrive\Documenten\PXL\23-24\S1\IoT technologie\Task_1\IoT_first_Assignment_1\HelloWorld.c"
-
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: program
-        path: "C:\Users\ceyha\OneDrive\Documenten\PXL\23-24\S1\IoT technologie\Task_1\IoT_first_Assignment_1\HelloWorld.c"
+        mkdir build
+        cd build
+        cmake ..
+        make
