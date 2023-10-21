@@ -34,7 +34,7 @@ jobs:
         run: g++ HelloWorld.cpp -o HelloWorld.exe 
       
       - name: Makes it work 
-        run: chmod +x HelloWorld.arm
+        run: chmod +x ./HelloWorld.arm
 
       - name: Run exe Executable
         run: ./HelloWorld
