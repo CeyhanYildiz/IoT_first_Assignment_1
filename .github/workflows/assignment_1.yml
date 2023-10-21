@@ -25,10 +25,10 @@ jobs:
         # Replace 'cross-compile-command' with the cross-compiler command
         cross-compile-command program_name.cpp -o program_name
       shell: bash
-      working-directory: ./path/to/your/code
+      working-directory: "C:\Users\ceyha\OneDrive\Documenten\PXL\23-24\S1\IoT technologie\Task_1\IoT_first_Assignment_1\HelloWorld.c"
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
         name: program
-        path: ./path/to/your/code/program_name
+        path: "C:\Users\ceyha\OneDrive\Documenten\PXL\23-24\S1\IoT technologie\Task_1\IoT_first_Assignment_1\HelloWorld.c"
