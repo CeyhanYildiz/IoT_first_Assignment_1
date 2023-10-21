@@ -1,24 +1,29 @@
-name: Build C/C++ Program
+name: Compile C++ for TUL Pynq Z2
 
 on:
   push:
     branches:
-      - main # Change this to your default branch
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Compile HelloWorld.c
-      uses: gcc HelloWorld.c -o HelloWorld.exe
+      - name: Set up QEMU for ARM
+        uses: docker/setup-qemu-action@v1
 
-    - name: Run HelloWorld
-      uses: ./HelloWorld.exe
+      - name: Check out code
+        uses: actions/checkout@v2
 
-    - name: Build
-      run: |
-        mkdir build
-        cd build
-        cmake ..
-        make
+      - name: Install cross-compiler
+        run: sudo apt-get update && sudo apt-get install -y g++-arm-linux-gnueabihf
+
+      - name: Compile C++ code
+        run: arm-linux-gnueabihf-g++ main.cpp -o main-arm
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: compiled-code
+          path: main-arm
