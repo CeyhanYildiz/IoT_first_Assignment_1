@@ -1,37 +1,34 @@
-name: Build C Program
+name: Build C/C++ Program for TUL Pynq Z2
 
-on:
-  push:
-    branches:
-      - main  # Change this to your repository's default branch
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check Out Code
+    - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Set up GCC
-      uses: actions/setup-python@v2
+    - name: Set up C/C++ environment
+      uses: actions/setup-cpp@v2
+
+    - name: Install Cross-Compiler
+      run: |
+        # Replace 'cross-compiler-command' with the appropriate installation command
+        sudo apt-get install -y cross-compiler-command
+      shell: bash
+
+    - name: Cross-Compile for TUL Pynq Z2
+      run: |
+        # Replace 'program_name' with your program's filename
+        # Replace 'cross-compile-command' with the cross-compiler command
+        cross-compile-command program_name.cpp -o program_name
+      shell: bash
+      working-directory: ./path/to/your/code
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
       with:
-        python-version: '3.x'
-
-    - name: Build Program
-      run: |
-        if [[ -f HelloWorld.c ]]; then
-          gcc HelloWorld.c -o HelloWorld
-        else
-          echo "No C source file found."
-          exit 1
-        fi
-
-    - name: Run Program
-      run: |
-        if [[ -f HelloWorld ]]; then
-          ./HelloWorld
-        else
-          echo "Executable not found. Build step may have failed."
-          exit 1
-        fi
+        name: program
+        path: ./path/to/your/code/program_name
