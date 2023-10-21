@@ -21,7 +21,7 @@ jobs:
     - name: Build Program
       run: |
         if [[ -f HelloWorld.c ]]; then
-          gcc HelloWorld.c -o HelloWorld.exe
+          gcc HelloWorld.c -o HelloWorld
         else
           echo "No C source file found."
           exit 1
